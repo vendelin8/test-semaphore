@@ -7,6 +7,8 @@ agent:
 blocks:
   - name: "Build"
     task:
+      secrets:
+        - name: artifact-test-creds
       env_vars:
         - name: APP_ENV
           value: prod
@@ -14,6 +16,8 @@ blocks:
       - name: Docker build
         commands:
           - checkout
+          - ls /home/semaphore/.artifact/creds.json
+          - cat /home/semaphore/.artifact/creds.json
           - artifact push job README.md
           - ls -1
           - echo $APP_ENV
